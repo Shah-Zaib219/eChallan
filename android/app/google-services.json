@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "444375463291",
+    "project_id": "trafficchallan-2c47e",
+    "storage_bucket": "trafficchallan-2c47e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444375463291:android:624b348faf5b73e0b3f9de",
+        "android_client_info": {
+          "package_name": "com.example.echallan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4BI7aQrNmg0hoNV5d_eOF0-bX1GaoLXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
