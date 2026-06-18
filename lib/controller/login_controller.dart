@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:echallan/screens/users_screens/camra_capture_scerren.dart';
 import 'package:echallan/screens/wardan/dash_bord.dart';
+import 'package:echallan/utils/auth_service.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,9 +59,18 @@ class LoginController extends GetxController {
         return;
       }
 
-      var role = userDocument.data()?['role'];
+      var role = userDocument.data()?['role'] ?? '';
       wardenName = (userDocument.data()?['first_name'] ?? '') +
           (userDocument.data()?['last_name'] ?? '');
+
+      final authService = Get.find<AuthService>();
+      await authService.saveUserSession(
+        uid: userId,
+        role: role,
+        firstName: userDocument.data()?['first_name'] ?? '',
+        lastName: userDocument.data()?['last_name'] ?? '',
+        email: userDocument.data()?['email'] ?? '',
+      );
 
       isLoading.value = false;
       emailController.clear();

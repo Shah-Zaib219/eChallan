@@ -1,6 +1,8 @@
 import 'package:echallan/constants/constants.dart';
 import 'package:echallan/controller/image_detection.dart';
+import 'package:echallan/utils/auth_service.dart';
 import 'package:echallan/utils/button.dart';
+import 'package:echallan/utils/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
@@ -15,21 +17,21 @@ class CamraCaptureScereen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Select Image Source"),
+          title: const Text("Select Image Source"),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.camera),
-                  title: Text("Camera"),
+                  leading: const Icon(Icons.camera),
+                  title: const Text("Camera"),
                   onTap: () {
                     Navigator.of(context).pop();
                     imageDetection.pickImage(ImageSource.camera);
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.photo_library),
-                  title: Text("Gallery"),
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text("Gallery"),
                   onTap: () {
                     Navigator.of(context).pop();
                     imageDetection.pickImage(ImageSource.gallery);
@@ -45,18 +47,17 @@ class CamraCaptureScereen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Get.find<AuthService>();
+    final String wardenName = authService.firstName ?? 'Warden';
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Constants.background,
+        drawer: const AppDrawer(),
         appBar: AppBar(
           backgroundColor: Constants.buttonColor,
-          leading: Icon(
-            Icons.menu_rounded,
-            size: 4.h,
-            color: Colors.white,
-          ),
           title: Text(
-            "Hii ${Get.arguments.toString()}",
+            "Hii $wardenName",
             style: const TextStyle(
                 color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
           ),
@@ -69,7 +70,7 @@ class CamraCaptureScereen extends StatelessWidget {
               children: [
                 Obx(() {
                   return imageDetection.isLoading.value
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : Button(
                           title: "Tap to capture",
                           height: 6.5,

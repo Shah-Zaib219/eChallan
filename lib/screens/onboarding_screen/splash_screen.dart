@@ -2,6 +2,9 @@ import 'package:echallan/controller/admin_controller.dart';
 import 'package:echallan/controller/image_detection.dart';
 import 'package:echallan/controller/login_controller.dart';
 import 'package:echallan/screens/onboarding_screen/main_screen.dart';
+import 'package:echallan/screens/users_screens/camra_capture_scerren.dart';
+import 'package:echallan/screens/wardan/dash_bord.dart';
+import 'package:echallan/utils/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'dart:async';
@@ -19,14 +22,28 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Get.lazyPut(() => WardanController());
-    Get.lazyPut(() => AdminController());
-    Get.lazyPut(() => ImageDetection());
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MainScreen()),
-      );
+    Get.lazyPut(() => WardanController(), fenix: true);
+    Get.lazyPut(() => AdminController(), fenix: true);
+    Get.lazyPut(() => ImageDetection(), fenix: true);
+    Timer(const Duration(seconds: 3), () {
+      final authService = Get.find<AuthService>();
+      if (authService.isLoggedIn) {
+        final loginController = Get.put(LoginController(), permanent: true);
+        loginController.userId = authService.uid;
+        loginController.wardenName =
+            "${authService.firstName} ${authService.lastName}".trim();
+
+        if (authService.role == "admin") {
+          Get.offAll(() => DashBord());
+        } else if (authService.role == "warden") {
+          Get.offAll(() => CamraCaptureScereen(),
+              arguments: authService.firstName ?? 'Warden');
+        } else {
+          Get.offAll(() => const MainScreen());
+        }
+      } else {
+        Get.offAll(() => const MainScreen());
+      }
     });
   }
 

@@ -1,6 +1,7 @@
 import 'package:echallan/screens/auth_screen/forget_password.dart';
 import 'package:echallan/screens/auth_screen/login_screen.dart';
 import 'package:echallan/screens/users_screens/camra_capture_scerren.dart';
+import 'package:echallan/utils/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:device_preview/device_preview.dart';
@@ -14,6 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Get.putAsync(() => AuthService().init());
   runApp(DevicePreview(
     enabled: false,
     builder: (context) => const MyApp(),

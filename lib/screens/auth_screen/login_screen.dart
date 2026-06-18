@@ -10,7 +10,7 @@ import '../../controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final _loginController = Get.put(LoginController());
+  final _loginController = Get.put(LoginController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     print(Get.arguments);

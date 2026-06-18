@@ -14,44 +14,49 @@ class DropDown extends StatefulWidget {
 
 class _DropDownState extends State<DropDown> {
   String _chosenValue = "Wrong Parking(Bike) 300";
-  final wardan_controller = Get.put(WardanController());
+  final wardan_controller = Get.find<WardanController>();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0, top: 15, right: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(bottom: 3.0),
+            padding: EdgeInsets.only(left: 4.0, bottom: 6),
             child: Text(
               "Fine",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                letterSpacing: 0.3,
+              ),
             ),
           ),
           Container(
-            width: 90
-                .w, // This width ensures the container takes 90% of the screen width
-            padding: const EdgeInsets.symmetric(
-                horizontal: 10), // Added symmetric padding for better alignment
+            width: 90.w,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(color: Colors.black, width: 2),
-              borderRadius: BorderRadius.circular(3.h),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.06),
+                  blurRadius: 8,
+                  offset: const Offset(0, 3),
+                ),
+              ],
             ),
             child: DropdownButtonHideUnderline(
-              // Used DropdownButtonHideUnderline to remove the default underline
               child: DropdownButton<String>(
-                isExpanded:
-                    true, // Ensures the dropdown expands to the container width
+                isExpanded: true,
                 focusColor: Colors.white,
                 value: _chosenValue,
-                style: const TextStyle(
-                    color:
-                        Colors.black), // Adjusted text color for dropdown items
-                iconEnabledColor: Colors.black,
-                iconSize: 30, // Increased the arrow size
+                style: const TextStyle(color: Color(0xFF0F172A), fontSize: 16),
+                iconEnabledColor: const Color(0xFF1E293B),
+                iconSize: 28,
                 items: <String>[
                   "Wrong Parking(Bike) 300",
                   'Wrong Parking(LTV) 500',
@@ -61,12 +66,13 @@ class _DropDownState extends State<DropDown> {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10), // Added padding to each item
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
                         value,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 20),
+                        style: const TextStyle(
+                          color: Color(0xFF0F172A),
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   );
@@ -83,8 +89,7 @@ class _DropDownState extends State<DropDown> {
                     } else if (value == 'Wrong Parking(HTV) 600') {
                       wardan_controller.fine = '600';
                       wardan_controller.fineType = value;
-                    } else if (value ==
-                        'Wrong Parking(Government Vehicle) 500') {
+                    } else if (value == 'Wrong Parking(Government Vehicle) 500') {
                       wardan_controller.fine = '500';
                       wardan_controller.fineType = value;
                     }

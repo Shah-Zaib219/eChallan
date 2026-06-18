@@ -15,134 +15,158 @@ class ChallanFormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Constants.background,
-          appBar: AppBar(
-            backgroundColor: Constants.buttonColor,
-            leading: Icon(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Constants.background,
+        appBar: AppBar(
+          backgroundColor: Constants.buttonColor,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
               Icons.arrow_back,
-              size: 4.h,
+              size: 3.h,
               color: Constants.textColor,
             ),
-            title: const Text(
-              "CHALLAN FORM",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600),
+            onPressed: () => Get.back(),
+          ),
+          title: const Text(
+            "CHALLAN FORM",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
             ),
           ),
-          body: Padding(
-            padding:
-                const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 20),
-            child: Container(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //name
-                    FormTextfields(
-                      controller: wardan_controller.name,
-                      hintText: "Enter Name",
-                      title: 'Name',
-                    ),
-                    //CNIC
-                    FormTextfields(
-                      controller: wardan_controller.cnic,
-                      hintText: "1234567",
-                      title: 'Owner CNIC',
-                    ),
-
-                    //mobile No
-                    FormTextfields(
-                      controller: wardan_controller.phone,
-                      hintText: "030000000",
-                      title: 'Mobile NO',
-                    ),
-                    //Lincence No
-                    FormTextfields(
-                      controller: wardan_controller.licence,
-                      hintText: "1234567",
-                      title: 'Lincence',
-                    ),
-                    //Vehicle NO
-                    FormTextfields(
-                      controller: wardan_controller.vehicle_no,
-                      hintText: "1234567",
-                      title: 'Vehicle NO',
-                    ),
-
-                    //drop down
-                    const DropDown(),
-
-                    SizedBox(
-                      height: 7.h,
-                      child: Obx(
-                        () => SizedBox(
-                          height: 10.h,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 7.h,
-                                width: 40.w,
-                                child: ListTile(
-                                  title: const Text('Paid'),
-                                  leading: Radio<String>(
-                                    activeColor: Colors.black,
-                                    value: 'paid',
-                                    groupValue:
-                                        wardan_controller.paymentStatus.value,
-                                    onChanged: (value) {
-                                      wardan_controller
-                                          .updatePaymentStatus(value!);
-                                    },
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 7.h,
-                                width: 50.w,
-                                child: ListTile(
-                                  title: const Text('Unpaid'),
-                                  leading: Radio<String>(
-                                    activeColor: Colors.black,
-                                    value: 'unpaid',
-                                    groupValue:
-                                        wardan_controller.paymentStatus.value,
-                                    onChanged: (value) {
-                                      wardan_controller
-                                          .updatePaymentStatus(value!);
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Name
+                FormTextfields(
+                  controller: wardan_controller.name,
+                  hintText: "Enter Name",
+                  title: 'Name',
+                ),
+                // CNIC
+                FormTextfields(
+                  controller: wardan_controller.cnic,
+                  hintText: "1234567",
+                  title: 'Owner CNIC',
+                ),
+                // Mobile No
+                FormTextfields(
+                  controller: wardan_controller.phone,
+                  hintText: "030000000",
+                  title: 'Mobile NO',
+                ),
+                // Licence No
+                FormTextfields(
+                  controller: wardan_controller.licence,
+                  hintText: "1234567",
+                  title: 'Licence',
+                ),
+                // Vehicle NO
+                FormTextfields(
+                  controller: wardan_controller.vehicle_no,
+                  hintText: "1234567",
+                  title: 'Vehicle NO',
+                ),
+                // Fine Type Dropdown
+                const DropDown(),
+                const SizedBox(height: 12),
+                // Payment Status Radio Selector
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 4.0, bottom: 8),
+                        child: Text(
+                          "Payment Status",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            letterSpacing: 0.3,
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 40.h,
-                    )
-                  ],
+                      Obx(
+                        () => Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Radio<String>(
+                                    activeColor: Colors.white,
+                                    value: 'paid',
+                                    groupValue: wardan_controller.paymentStatus.value,
+                                    onChanged: (value) {
+                                      wardan_controller.updatePaymentStatus(value!);
+                                    },
+                                  ),
+                                  const Text(
+                                    'Paid',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Radio<String>(
+                                    activeColor: Colors.white,
+                                    value: 'unpaid',
+                                    groupValue: wardan_controller.paymentStatus.value,
+                                    onChanged: (value) {
+                                      wardan_controller.updatePaymentStatus(value!);
+                                    },
+                                  ),
+                                  const Text(
+                                    'Unpaid',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                // Padding block to prevent keyboard/button overlapping layout content
+                SizedBox(height: 16.h),
+              ],
             ),
           ),
-          floatingActionButton: Obx(
-            () => wardan_controller.isloading.value
-                ? Align(
-                    alignment: Alignment.bottomCenter,
-                    child: const CircularProgressIndicator())
-                : Align(
-                    alignment: Alignment.bottomCenter,
-                    child: LogButton(
-                      title: "Genarate challan",
-                      onpress: () {
-                        wardan_controller.storeChallanDetails();
-                      },
-                    ),
-                  ),
-          )),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Obx(
+          () => wardan_controller.isloading.value
+              ? const CircularProgressIndicator(color: Colors.white)
+              : LogButton(
+                  title: "Generate Challan",
+                  onpress: () {
+                    wardan_controller.storeChallanDetails();
+                  },
+                ),
+        ),
+      ),
     );
   }
 }

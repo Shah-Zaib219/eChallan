@@ -65,8 +65,10 @@ class Unpaid extends StatelessWidget {
                       SizedBox(height: 2.h),
                       Obx(() {
                         if (adminController.unpaidChallans.isEmpty) {
-                          return const Center(
-                            child: Expanded(child: Text("No  Challan Found")),
+                          return const Expanded(
+                            child: Center(
+                              child: Text("No Challan Found"),
+                            ),
                           );
                         }
 

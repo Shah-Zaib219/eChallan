@@ -52,7 +52,8 @@ class WardanController extends GetxController {
       'payment_status': paymentStatus.value,
       'challan_by': loginController.userId,
       'officer_name': loginController.wardenName,
-      'fine_type': fineType
+      'fine_type': fineType,
+      'challan_time': FieldValue.serverTimestamp(),
     };
 
     try {
