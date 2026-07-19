@@ -9,7 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'screens/onboarding_screen/splash_screen.dart';
 import 'firebase_options.dart';
-// E-Challan
+// E-Challan App
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
